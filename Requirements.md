@@ -1,18 +1,28 @@
-# Clinic Appointments — Requirements
 
-## 1. Functional Requirements
+# 1. Requirements
 
-| ID | Requirement                                                                                 |
-| -- | ------------------------------------------------------------------------------------------- |
-| R1 | The system shall allow a Patient to view the available Doctors.                             |
-| R2 | The system shall allow a Patient to view a Doctor's available appointment slots.            |
-| R3 | The system shall allow a Patient to book an available appointment with a Doctor.            |
-| R4 | The system shall allow a Patient to have a maximum of N upcoming appointments.              |
-| R5 | The system shall prevent a Patient from booking an appointment slot that is already booked. |
-| R6 | The system shall allow a Patient to cancel an upcoming appointment.                         |
+**Chosen value: N = 5.** A patient may have at most five upcoming appointments at any given time.
 
-## 2. Non-Functional Requirements
+## Functional Requirements
 
-| ID | Requirement                                                                               |
-| -- | ----------------------------------------------------------------------------------------- |
-| R7 | The system shall provide clear confirmation or error messages for appointment operations. |
+| ID | Requirement |
+|---|---|
+| R1 | A patient can view the days and times when a doctor is available. |
+| R2 | A patient can book an appointment during an available time slot. |
+| R3 | A doctor can accept or decline an appointment request. |
+| R4 | A patient can have at most N upcoming appointments at any given time. |
+
+## Non-Functional Requirements
+
+| ID | Category | Requirement |
+|---|---|---|
+| R5 | Security | Patient medical data shall be accessible only to authorized staff. |
+| R6 | Performance | Available appointment times shall be displayed within 2 seconds. |
+| R7 | Usability | The application shall be usable on mobile phone screens. |
+
+## Notes
+
+- N = 5 is the team's chosen value for this project.
+- R5 is a security constraint.
+- R6 defines a performance requirement.
+- R7 defines a usability requirement.

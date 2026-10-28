@@ -1,72 +1,68 @@
+
 # 2. Use Cases
 
 ## Actors
 
-* **Patient:** Can view doctors, check available appointment slots, book appointments, and cancel upcoming appointments.
-* **Doctor:** Can view their upcoming appointments.
+- **Patient:** Views a doctor's available days and times and requests an appointment.
+- **Doctor:** Accepts or declines appointment requests.
 
-## UC1: View Doctors
+## UC1: View Doctor Availability
 
-* **Primary Actor:** Patient
-* **Precondition:** The system is available.
-* **Main Flow:**
+- **Primary Actor:** Patient
+- **Related Requirement:** R1
+- **Precondition:** The system has the doctor's availability schedule.
 
-  1. The Patient opens the list of doctors.
-  2. The system displays the available doctors and their specialties.
-* **Postcondition:** The Patient can choose a doctor.
+### Main Flow
 
-## UC2: View Available Appointment Slots
+1. The Patient selects a Doctor.
+2. The system retrieves the selected Doctor's available days and times.
+3. The system displays the available appointment slots.
 
-* **Primary Actor:** Patient
-* **Precondition:** The system contains the selected Doctor's schedule.
-* **Main Flow:**
+- **Postcondition:** The Patient can review the available slots.
+- **Constraint:** Available appointment times must be displayed within 2 seconds (R6).
 
-  1. The Patient selects a Doctor.
-  2. The system retrieves the Doctor's appointment slots.
-  3. The system displays the available slots.
-* **Postcondition:** The Patient can select an available slot.
+## UC2: Book Appointment
 
-## UC3: Book Appointment
+- **Primary Actor:** Patient
+- **Related Requirements:** R2, R4
+- **Preconditions:**
+  - The Patient has selected an available time slot.
+  - The Patient has fewer than N upcoming appointments.
 
-* **Primary Actor:** Patient
-* **Preconditions:**
+### Main Flow
 
-  * The selected appointment slot is available.
-  * The Patient has fewer than N upcoming appointments.
-* **Main Flow:**
+1. The Patient selects an available time slot.
+2. The system checks the number of the Patient's upcoming appointments.
+3. The system creates an appointment request for the selected slot.
+4. The system informs the Patient that the request has been submitted and is awaiting the Doctor's decision.
 
-  1. The Patient selects an available slot.
-  2. The system checks the slot's availability.
-  3. The system checks the Patient's number of upcoming appointments.
-  4. The system creates the appointment.
-  5. The system displays a booking confirmation.
-* **Alternative Flow — Slot Is No Longer Available:**
+### Alternative Flow: Maximum Appointment Limit Reached
 
-  1. At step 2, the system discovers that another Patient has already booked the slot.
-  2. The system does not create the appointment.
-  3. The system displays an error message and asks the Patient to choose another slot.
-* **Postcondition:** The appointment is created only if all booking conditions are satisfied.
+1. At step 2, the system finds that the Patient already has N upcoming appointments.
+2. The system does not create another appointment request.
+3. The system informs the Patient that the maximum number of upcoming appointments has been reached.
 
-## UC4: Cancel Appointment
+- **Postcondition:** A request is created only if the Patient has fewer than N upcoming appointments.
+- **Constraint:** N = 5 for this project.
 
-* **Primary Actor:** Patient
-* **Precondition:** The Patient has an upcoming appointment.
-* **Main Flow:**
+## UC3: Respond to Appointment Request
 
-  1. The Patient selects an upcoming appointment.
-  2. The Patient requests cancellation.
-  3. The system cancels the appointment.
-  4. The system makes the appointment slot available again.
-  5. The system displays a cancellation confirmation.
-* **Postcondition:** The appointment is cancelled and its slot becomes available.
+- **Primary Actor:** Doctor
+- **Related Requirement:** R3
+- **Precondition:** An appointment request is waiting for the Doctor's decision.
 
-## UC5: View Upcoming Appointments
+### Main Flow
 
-* **Primary Actor:** Doctor
-* **Precondition:** The Doctor has appointments recorded in the system.
-* **Main Flow:**
+1. The Doctor views a pending appointment request.
+2. The Doctor chooses to accept or decline the request.
+3. The system records the Doctor's decision.
+4. The system updates the appointment request status.
+5. The system makes the result available to the Patient.
 
-  1. The Doctor requests to view upcoming appointments.
-  2. The system retrieves the Doctor's upcoming appointments.
-  3. The system displays the appointments.
-* **Postcondition:** The Doctor can review their upcoming appointments.
+- **Postcondition:** The request has an accepted or declined status.
+
+## System-Wide Constraints
+
+- **R5 — Security:** Patient medical data must be accessible only to authorized staff.
+- **R6 — Performance:** Available appointment times must be displayed within 2 seconds.
+- **R7 — Usability:** The application must be usable on mobile phone screens.
